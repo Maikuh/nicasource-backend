@@ -5,4 +5,6 @@ import config from './config'
 
 export const pinoHttpLogger = pinoHttp()
 
-export const logger = !config.app.isProduction ? pino(pretty()) : pino()
+export const logger = !config.app.isProduction
+  ? pino({ level: config.app.isProduction ? 'info' : 'debug' }, pretty())
+  : pino({ level: config.app.isProduction ? 'info' : 'debug' })
