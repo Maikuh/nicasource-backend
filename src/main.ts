@@ -11,17 +11,14 @@ import setupMiddlewares from './middlewares'
 async function bootstrap () {
   await AppDataSource.initialize()
 
-  if (AppDataSource.isInitialized) {
+  if (AppDataSource.isInitialized)
     logger.info('Successfully connected to the database')
-  }
 
   const app = express()
 
   setupMiddlewares(app)
 
-  for (const [path, router] of Object.entries(routes)) {
-    app.use(path, router)
-  }
+  for (const [path, router] of Object.entries(routes)) app.use(path, router)
 
   app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof HttpException) {
@@ -37,4 +34,4 @@ async function bootstrap () {
   })
 }
 
-bootstrap().catch(logger.error)
+bootstrap().catch(err => logger.error(err))

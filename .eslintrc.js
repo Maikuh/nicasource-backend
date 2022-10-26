@@ -17,19 +17,8 @@ module.exports = {
     'space-before-function-paren': 'off',
     '@typescript-eslint/space-before-function-paren': 'off',
     '@typescript-eslint/indent': 'off',
-    'comma-dangle': [
-      'error',
-      {
-        arrays: 'only-multiline',
-        objects: 'only-multiline',
-      },
-    ],
-    '@typescript-eslint/comma-dangle': [
-      'error',
-      {
-        arrays: 'only-multiline',
-        objects: 'only-multiline',
-      },
-    ],
+    'comma-dangle': ['error', 'only-multiline'],
+    '@typescript-eslint/comma-dangle': ['error', 'only-multiline'],
+    curly: ['error', 'multi'],
   },
 }

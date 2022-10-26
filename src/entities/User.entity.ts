@@ -3,29 +3,45 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm'
 import argon2 from 'argon2'
-import { Exclude, Expose } from 'class-transformer'
+import { Exclude } from 'class-transformer'
+import { Video } from './Video.entity'
 
-@Expose()
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  @Exclude()
-    id: string
+  id: string
 
   @Column()
-    name: string
+  name: string
 
   @Column({
-    unique: true
+    unique: true,
   })
-    email: string
+  email: string
 
   @Column()
   @Exclude()
-    password: string
+  password: string
+
+  @OneToMany(
+    () => Video,
+    video => video.creator
+  )
+  videos: Video[]
+
+  @JoinTable({ name: 'likes' })
+  @ManyToMany(
+    () => Video,
+    video => video.likedBy,
+    { cascade: true }
+  )
+  likes: Video[]
 
   @CreateDateColumn() createdAt: Date
 

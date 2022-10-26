@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "rimraf build",
     "build": "cross-env NODE_ENV=production npm run clean && npm run lint && tsc",
-    "start": "node build/main.ts",
+    "start": "node build/main.js",
     "start:dev": "ts-node src/main.ts",
     "dev": "ts-node-dev --respawn --transpile-only src/main.ts",
     "lint": "eslint --fix .",

@@ -21,11 +21,10 @@ usersRoutes.post(
       where: { email: body.email },
     })
 
-    if (existingUser != null) {
+    if (existingUser != null)
       throw new ConflictException(
         'The email is already taken. Please use another one.'
       )
-    }
 
     const newUser = userRepository.create(body)
 
@@ -48,9 +47,8 @@ usersRoutes.post('/login', async (req, res, next) => {
 
   const passwordsMatch = await user.comparePassword(body.password)
 
-  if (!passwordsMatch) {
+  if (!passwordsMatch)
     throw new BadRequestException('Invalid email or password')
-  }
 
   res.json({
     access_token: generateJwt(user),
@@ -62,7 +60,12 @@ usersRoutes.get(
   authMiddleware,
   responseWrapper,
   async (req, res) => {
-    res.sendRes(req.user)
+    const user = await userRepository.findOne({
+      where: { email: req.user?.email },
+      relations: ['videos', 'likes'],
+    })
+
+    res.sendRes(user)
   }
 )
 
