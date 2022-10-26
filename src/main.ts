@@ -3,11 +3,12 @@ import 'dotenv/config'
 import express, { NextFunction, Request, Response } from 'express'
 import { AppDataSource } from './config/data-source'
 import config from './config'
-import { logger, pinoHttpLogger } from './logger'
+import { logger } from './logger'
 import routes from './routes'
 import { HttpException } from './common/exceptions'
+import setupMiddlewares from './middlewares'
 
-async function bootstrap() {
+async function bootstrap () {
   await AppDataSource.initialize()
 
   if (AppDataSource.isInitialized) {
@@ -16,16 +17,16 @@ async function bootstrap() {
 
   const app = express()
 
-  app.use(express.json())
-  app.use(pinoHttpLogger)
+  setupMiddlewares(app)
 
-  routes.forEach((route) => {
-    app.use(...route)
-  })
+  for (const [path, router] of Object.entries(routes)) {
+    app.use(path, router)
+  }
 
   app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof HttpException) {
       res.status(err.getStatus()).json(err.getResponse())
+      return next()
     }
 
     next(err)

@@ -20,15 +20,15 @@ module.exports = {
     'comma-dangle': [
       'error',
       {
-        arrays: 'never',
-        objects: 'never',
+        arrays: 'only-multiline',
+        objects: 'only-multiline',
       },
     ],
     '@typescript-eslint/comma-dangle': [
       'error',
       {
-        arrays: 'never',
-        objects: 'never',
+        arrays: 'only-multiline',
+        objects: 'only-multiline',
       },
     ],
   },

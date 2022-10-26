@@ -4,7 +4,7 @@ const indexRoutes = Router()
 
 indexRoutes.get('/status', (req, res) => {
   res.json({
-    status: 'ok'
+    status: 'ok',
   })
 })
 

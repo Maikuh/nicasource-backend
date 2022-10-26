@@ -1,0 +1,22 @@
+diff --git a/node_modules/@types/express-serve-static-core/index.d.ts b/node_modules/@types/express-serve-static-core/index.d.ts
+index 979aea8..d344edf 100755
+--- a/node_modules/@types/express-serve-static-core/index.d.ts
++++ b/node_modules/@types/express-serve-static-core/index.d.ts
+@@ -67,7 +67,7 @@ export interface RequestHandler<
+         req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
+         res: Response<ResBody, Locals>,
+         next: NextFunction,
+-    ): void;
++    ): void | Promise<void>;
+ }
+ 
+ export type ErrorRequestHandler<
+@@ -81,7 +81,7 @@ export type ErrorRequestHandler<
+     req: Request<P, ResBody, ReqBody, ReqQuery, Locals>,
+     res: Response<ResBody, Locals>,
+     next: NextFunction,
+-) => void;
++) => void | Promise<void>;
+ 
+ export type PathParams = string | RegExp | Array<string | RegExp>;
+ 

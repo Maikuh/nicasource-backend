@@ -8,10 +8,10 @@ import { responseWrapper } from '../middlewares/response-wrapper.middleware'
 import { validateBody } from '../middlewares/validate-body.middleware'
 import { generateJwt } from '../utils/jwt.util'
 
-const userRoutes = Router()
+const usersRoutes = Router()
 const userRepository = AppDataSource.getRepository(User)
 
-userRoutes.post(
+usersRoutes.post(
   '/register',
   validateBody(CreateUserDTO),
   async (req, res, next) => {
@@ -22,10 +22,8 @@ userRoutes.post(
     })
 
     if (existingUser != null) {
-      return next(
-        new ConflictException(
-          'The email is already taken. Please use another one.'
-        )
+      throw new ConflictException(
+        'The email is already taken. Please use another one.'
       )
     }
 
@@ -39,7 +37,7 @@ userRoutes.post(
   }
 )
 
-userRoutes.post('/login', async (req, res, next) => {
+usersRoutes.post('/login', async (req, res, next) => {
   const { body } = req
 
   const user = await userRepository.findOne({
@@ -59,7 +57,7 @@ userRoutes.post('/login', async (req, res, next) => {
   })
 })
 
-userRoutes.get(
+usersRoutes.get(
   '/profile',
   authMiddleware,
   responseWrapper,
@@ -68,4 +66,4 @@ userRoutes.get(
   }
 )
 
-export default userRoutes
+export default usersRoutes
