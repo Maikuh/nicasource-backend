@@ -18,24 +18,21 @@ export default async function (
 
   const bearerToken = req.header('Authorization')
 
-  if (bearerToken == null) {
+  if (bearerToken == null)
     return sendUnauthorized()
-  }
 
   try {
     const data = verifyJwt(bearerToken?.split(' ').pop())
 
     const user = await userRepository.findOne({ where: { email: data.email } })
 
-    if (user == null) {
+    if (user == null)
       return sendUnauthorized()
-    }
 
     req.user = user
     next()
   } catch (error) {
-    if (error instanceof TokenExpiredError) {
+    if (error instanceof TokenExpiredError)
       return sendUnauthorized()
-    }
   }
 }

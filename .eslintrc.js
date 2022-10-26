@@ -10,7 +10,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['.eslintrc.js', 'build'],
   plugins: ['@typescript-eslint'],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',

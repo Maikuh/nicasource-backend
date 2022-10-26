@@ -1,5 +1,4 @@
 import 'reflect-metadata'
-import 'dotenv/config'
 import express, { NextFunction, Request, Response } from 'express'
 import { AppDataSource } from './config/data-source'
 import config from './config'

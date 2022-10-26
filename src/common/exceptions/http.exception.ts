@@ -54,24 +54,22 @@ export class HttpException extends Error {
    * - https://github.com/microsoft/TypeScript/issues/45167
    */
   public initCause() {
-    if (this.response instanceof Error) {
+    if (this.response instanceof Error)
       this.cause = this.response
-    }
   }
 
   public initMessage() {
-    if (isString(this.response)) {
+    if (isString(this.response))
       this.message = this.response
-    } else if (
+     else if (
       isObject(this.response) &&
       isString((this.response as Record<string, any>).message)
-    ) {
+    )
       this.message = (this.response as Record<string, any>).message
-    } else if (this.constructor != null) {
+     else if (this.constructor != null)
       this.message = this.constructor.name
         .match(/[A-Z][a-z]+|[0-9]+/g)
         .join(' ')
-    }
   }
 
   public initName(): void {
@@ -91,9 +89,9 @@ export class HttpException extends Error {
     description?: string,
     statusCode?: number
   ) {
-    if (objectOrError == null) {
+    if (objectOrError == null)
       return { statusCode, message: description }
-    }
+
     return isObject(objectOrError) && !Array.isArray(objectOrError)
       ? objectOrError
       : { statusCode, message: objectOrError, error: description }

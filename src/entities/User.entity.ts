@@ -11,6 +11,8 @@ import {
 import argon2 from 'argon2'
 import { Exclude } from 'class-transformer'
 import { Video } from './Video.entity'
+import { IsUrl } from 'class-validator'
+import { UserRole } from '../enums/user-role.enum'
 
 @Entity()
 export class User {
@@ -25,9 +27,16 @@ export class User {
   })
   email: string
 
+  @Column({ enum: UserRole, type: 'enum' })
+  role: UserRole
+
   @Column()
   @Exclude()
   password: string
+
+  @Column()
+  @IsUrl()
+  photoUrl: string
 
   @OneToMany(
     () => Video,
@@ -42,6 +51,24 @@ export class User {
     { cascade: true }
   )
   likes: Video[]
+
+  @JoinTable({
+    name: 'follows',
+    joinColumn: { name: 'creator_id' },
+    inverseJoinColumn: { name: 'follower_id' },
+  })
+  @ManyToMany(
+    () => User,
+    user => user.followers,
+    { cascade: true }
+  )
+  following: User[]
+
+  @ManyToMany(
+    () => User,
+    user => user.following
+  )
+  followers: User[]
 
   @CreateDateColumn() createdAt: Date
 
