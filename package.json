@@ -10,6 +10,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/main.ts",
     "lint": "eslint --fix .",
     "typeorm": "typeorm-ts-node-commonjs",
+    "typeorm:generate": "npm run typeorm -- -d src/config/data-source.ts migration:generate",
     "typeorm:migrate": "npm run typeorm -- -d src/config/data-source.ts migration:run",
     "typeorm:revert": "npm run typeorm -- -d src/config/data-source.ts migration:revert",
     "postinstall": "patch-package",
