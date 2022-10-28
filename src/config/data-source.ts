@@ -4,7 +4,7 @@ import config from '.'
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost',
+  host: config.db.host,
   port: 5432,
   username: config.db.username,
   password: config.db.password,

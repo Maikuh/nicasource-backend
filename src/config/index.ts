@@ -7,6 +7,7 @@ export default {
     jwtSecret: process.env.JWT_SECRET ?? '',
   },
   db: {
+    host: process.env.POSTGRES_HOST ?? 'localhost',
     username: process.env.POSTGRES_USERNAME ?? 'nicasource',
     password: process.env.POSTGRES_PASSWORD ?? 'nicasource',
     name: process.env.POSTGRES_DATABASE ?? 'videos_creator',
