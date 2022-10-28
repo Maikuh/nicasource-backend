@@ -1,9 +1,4 @@
-import {
-  AfterInsert,
-  BeforeRemove,
-  Entity,
-  PrimaryColumn,
-} from 'typeorm'
+import { AfterInsert, BeforeRemove, Entity, PrimaryColumn } from 'typeorm'
 import { logger } from '../logger'
 
 @Entity()
@@ -21,6 +16,8 @@ export default class Follows {
 
   @BeforeRemove()
   private unfollowNotification () {
-    logger.info(`User "${this.follower_id}" has unfollowed "${this.creator_id}" :(`)
+    logger.info(
+      `User "${this.follower_id}" has unfollowed "${this.creator_id}" :(`
+    )
   }
 }
