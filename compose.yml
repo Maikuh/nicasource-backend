@@ -10,3 +10,13 @@ services:
       POSTGRES_USER: nicasource
       POSTGRES_PASSWORD: nicasource
       POSTGRES_DB: videos_creator
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    volumes:
+      - ./src:/usr/src/app/src

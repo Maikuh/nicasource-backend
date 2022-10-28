@@ -1,12 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "main": "./build/main.js",
   "scripts": {
     "clean": "rimraf build",
     "build": "cross-env NODE_ENV=production npm run clean && npm run lint && tsc",
-    "start": "node build/main.js",
-    "start:dev": "ts-node --files src/main.ts",
-    "dev": "ts-node-dev --respawn --transpile-only src/main.ts",
+    "start": "node ./build/main.js",
+    "start:dev": "ts-node --files ./src/main.ts",
+    "dev": "ts-node-dev --respawn --transpile-only ./src/main.ts",
     "lint": "eslint --fix .",
     "typeorm": "typeorm-ts-node-commonjs",
     "typeorm:generate": "npm run typeorm -- -d src/config/data-source.ts migration:generate",
