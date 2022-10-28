@@ -34,7 +34,7 @@ export class HttpException extends Error {
    * @param response string or object describing the error condition.
    * @param status HTTP response status code.
    */
-  constructor(
+  constructor (
     private readonly response: string | Record<string, any>,
     private readonly status: number
   ) {
@@ -53,34 +53,32 @@ export class HttpException extends Error {
    * - https://nodejs.org/en/blog/release/v16.9.0/#error-cause
    * - https://github.com/microsoft/TypeScript/issues/45167
    */
-  public initCause() {
-    if (this.response instanceof Error)
-      this.cause = this.response
+  public initCause () {
+    if (this.response instanceof Error) this.cause = this.response
   }
 
-  public initMessage() {
-    if (isString(this.response))
-      this.message = this.response
-     else if (
+  public initMessage () {
+    if (isString(this.response)) this.message = this.response
+    else if (
       isObject(this.response) &&
       isString((this.response as Record<string, any>).message)
     )
       this.message = (this.response as Record<string, any>).message
-     else if (this.constructor != null)
-      this.message = this.constructor.name
+    else if (this.constructor != null)
+      this.message = (this.constructor as any).name
         .match(/[A-Z][a-z]+|[0-9]+/g)
         .join(' ')
   }
 
-  public initName(): void {
+  public initName (): void {
     this.name = this.constructor.name
   }
 
-  public getResponse(): string | object {
+  public getResponse (): string | object {
     return this.response
   }
 
-  public getStatus(): number {
+  public getStatus (): number {
     return this.status
   }
 
@@ -89,8 +87,7 @@ export class HttpException extends Error {
     description?: string,
     statusCode?: number
   ) {
-    if (objectOrError == null)
-      return { statusCode, message: description }
+    if (objectOrError == null) return { statusCode, message: description }
 
     return isObject(objectOrError) && !Array.isArray(objectOrError)
       ? objectOrError
