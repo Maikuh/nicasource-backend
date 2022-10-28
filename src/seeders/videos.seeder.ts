@@ -15,7 +15,7 @@ export async function seedVideos (users: User[]) {
   for (let i = 0; i < 20; i++)
     videos.push(
       videoRepository.create({
-        creator: users[i / 2],
+        creator: users[Math.floor(i / 2)],
         title: faker.random.words(4),
         srcUrl: videoUrlsConstant[i],
         published: i % 2 === 0,

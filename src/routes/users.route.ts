@@ -36,9 +36,7 @@ usersRoutes.post(
 
     await userRepository.save(newUser)
 
-    res.status(201).json({
-      access_token: generateJwt(newUser as any),
-    })
+    res.status(201).json(generateJwt(newUser as any))
   }
 )
 
@@ -56,15 +54,13 @@ usersRoutes.post('/login', async (req, res, next) => {
   if (!passwordsMatch)
     throw new BadRequestException('Invalid email or password')
 
-  res.json({
-    access_token: generateJwt(user),
-  })
+  res.json(generateJwt(user))
 })
 
 usersRoutes.get('/me', authMiddleware, responseWrapper, async (req, res) => {
   const user = await userRepository.findOne({
     where: { email: req.user?.email },
-    relations: ['videos', 'likes'],
+    relations: ['videos', 'likes', 'following', 'followers'],
   })
 
   res.sendRes(user)

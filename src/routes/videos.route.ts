@@ -16,6 +16,7 @@ const videoRepository = AppDataSource.getRepository(Video)
 videosRoutes.get('/', authMiddleware, responseWrapper, async (req, res) => {
   const videos = await videoRepository.find({
     relations: ['creator', 'likedBy'],
+    where: { published: true },
   })
 
   res.sendRes(videos)
